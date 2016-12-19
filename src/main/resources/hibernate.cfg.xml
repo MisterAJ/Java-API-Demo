@@ -8,8 +8,14 @@
         <!-- SQL dialect-->
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
 
-        <!-- Create database schema on startup -->
-        <property name="hbm2ddl.auto">create</property>
+        <!-- Update database schema on startup -->
+        <property name="hbm2ddl.auto">update</property>
+
+        <!-- Show Queries prepared -->
+        <property name="show_sql">true</property>
+
+        <!-- Username/Password -->
+        <property name="connection.username">sa</property>
 
         <!-- Names the annotated entity classes -->
         <mapping class="com.teamtreehouse.wordbank.model.Country" />

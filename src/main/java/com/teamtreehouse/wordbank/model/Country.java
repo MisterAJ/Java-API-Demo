@@ -5,17 +5,18 @@ import javax.persistence.*;
 @Entity
 public class Country {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // private int id;
 
-    @Column
+
+    // @Column
     private String name;
 
     @Column
-    private double internetUsers;
+    private Double internetUsers;
 
     @Column
-    private double literacy;
+    private Double literacy;
 
     public Country() {
     }
@@ -25,7 +26,7 @@ public class Country {
         this.internetUsers = builder.internetUsers;
         this.literacy = builder.literacy;
     }
-
+    /*
     public int getId() {
         return id;
     }
@@ -33,7 +34,7 @@ public class Country {
     public void setId(int id) {
         this.id = id;
     }
-
+    */
     public String getName() {
         return name;
     }
@@ -46,7 +47,7 @@ public class Country {
         return internetUsers;
     }
 
-    public void setInternetUsers(float internetUsers) {
+    public void setInternetUsers(Double internetUsers) {
         this.internetUsers = internetUsers;
     }
 
@@ -54,7 +55,7 @@ public class Country {
         return literacy;
     }
 
-    public void setLiteracy(float literacy) {
+    public void setLiteracy(Double literacy) {
         this.literacy = literacy;
     }
 
@@ -67,36 +68,10 @@ public class Country {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Country)) return false;
-
-        Country country = (Country) o;
-
-        if (getId() != country.getId()) return false;
-        if (Double.compare(country.getInternetUsers(), getInternetUsers()) != 0) return false;
-        if (Double.compare(country.getLiteracy(), getLiteracy()) != 0) return false;
-        return getName() != null ? getName().equals(country.getName()) : country.getName() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = getId();
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        temp = Double.doubleToLongBits(getInternetUsers());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(getLiteracy());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
-    }
-
     public static class CountryBuilder {
         private String name;
-        private double internetUsers;
-        private double literacy;
+        private Double internetUsers;
+        private Double literacy;
 
         public CountryBuilder(String name) {
             this.name = name;
