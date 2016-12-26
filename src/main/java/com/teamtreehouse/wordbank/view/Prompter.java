@@ -13,22 +13,18 @@ import static com.teamtreehouse.wordbank.controller.DAO.*;
 
 public class Prompter {
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private List<Country> countries;
-
 
     public void prompter() {
-        countries = fetchAllContacts();
-
-
         int choice = 1;
-        while (choice != 5){
+        while (choice != 6){
             System.out.println("\n------------------\n" +
                     "\nEnter 1 to View Database" +
                     "\nEnter 2 to Edit Database" +
                     "\nEnter 3 to Add To the Database" +
                     "\nEnter 4 to Delete From Database" +
-                    "\nEnter 5 to Quit.\n");
-            choice = promptForNumber("----");
+                    "\nEnter 5 to Print Stats" +
+                    "\nEnter 6 to Quit.\n");
+            choice = promptForNumber();
                 switch (choice) {
                     case 1:
                         viewDatabase();
@@ -43,6 +39,9 @@ public class Prompter {
                         deleteFromDatabase();
                         break;
                     case 5:
+                        printStats();
+                        break;
+                    case 6:
                         System.out.println("NO NOT THAT BUTTON!!");
                         break;
                     default:
@@ -57,7 +56,6 @@ public class Prompter {
         viewDatabase();
         Country country = findById(prompt("Which Country would you like to delete? - Please use 3 digit Alpha code"));
         delete(country);
-        countries.remove(country);
     }
 
     private void editDatabase() {
@@ -65,13 +63,13 @@ public class Prompter {
         String code = prompt("What Country would you like to edit? - Please use 3 digit Alpha code");
         Country country = findById(code);
         int switchValue = 1;
-        while (switchValue != 5) {
+        while (switchValue != 4) {
             System.out.println("\n------------------\n" +
                     "\nEnter 1 to Change Name" +
                     "\nEnter 2 to Change Internet Users Rate" +
                     "\nEnter 3 to Change Adult Literacy Rate" +
                     "\nEnter 4 to Quit\n");
-            switchValue = promptForNumber("----");
+            switchValue = promptForNumber();
             switch (switchValue) {
                 case 1:
                     country.setName(prompt("Please enter new Name"));
@@ -100,10 +98,11 @@ public class Prompter {
                 .withLiteracy(literacy)
                 .build();
         DAO.save(country);
-        countries.add(country);
     }
 
     private void viewDatabase() {
+        List<Country> countries = fetchAllContacts();
+        System.out.println("ID - Country                       - Internet Users         - Adult Literacy Rate");
         for (Country country: countries) {
             System.out.println(country);
         }
@@ -121,12 +120,12 @@ public class Prompter {
         return input;
     }
 
-    private static int promptForNumber(String promptString) {
+    private static int promptForNumber() {
         int output = 0;
         String input;
         Integer num = null;
         while (num == null) {
-            System.out.println(promptString);
+            System.out.println("----");
             try {
                 input = br.readLine();
             } catch (IOException ioe) {

@@ -75,4 +75,80 @@ public class DAO {
 
         return country;
     }
+
+    public static void printStats() {
+        Double minNetUsers = 99.0;
+        Double maxNetUsers = 0.0;
+        Double minLiteracy = 99.0;
+        Double maxLiteracy = 0.0;
+        Double averageNetUsers = 0.0;
+        Double averageLiteracy = 0.0;
+        Double totalNetUsers = 0.0;
+        Double totalLiteracy = 0.0;
+        Double totalNetUsersTimesLiteracy = 0.0;
+        Double totalNetUsersSqr = 0.0;
+        Double totalLiteracySqr = 0.0;
+        int count = 0;
+        List<Country> countries = fetchAllContacts();
+
+        for (Country country: countries) {
+            Double netUsers = country.getInternetUsers();
+            Double literacy = country.getAdultLiteracyRate();
+            count ++;
+
+            if (literacy != null && netUsers!= null ) {
+                totalNetUsersTimesLiteracy = totalNetUsersTimesLiteracy + (netUsers * literacy);
+                totalNetUsersSqr = totalNetUsersSqr + (netUsers * netUsers);
+                totalLiteracySqr = totalLiteracySqr + (literacy * literacy);
+            }
+
+            // Calculate Net User Stats
+            if (netUsers != null){
+                if (netUsers > maxNetUsers) {
+                    maxNetUsers = country.getInternetUsers();
+                }
+
+                if (netUsers < minNetUsers) {
+                    minNetUsers = country.getInternetUsers();
+                }
+            } else {
+                netUsers = 50.00;
+            }
+            totalNetUsers = totalNetUsers + netUsers;
+
+            // Calculate Literacy Stats
+            if (literacy != null){
+                if (literacy > maxLiteracy) {
+                    maxLiteracy = country.getAdultLiteracyRate();
+                }
+
+                if (literacy < minLiteracy) {
+                    minLiteracy = country.getAdultLiteracyRate();
+                }
+            } else {
+                literacy = 50.00;
+            }
+            totalLiteracy = totalLiteracy + literacy;
+
+
+        }
+
+        // Coefficient Calculation
+        Double valueOne = count * totalNetUsersTimesLiteracy - (totalNetUsers * totalLiteracy);
+        Double valueTwo = (count * totalNetUsersSqr - (totalNetUsers * totalNetUsers)) *
+                            (count * totalLiteracySqr - (totalLiteracy * totalLiteracy));
+
+        Double coefficient = valueOne / Math.sqrt(valueTwo);
+
+        averageNetUsers = totalNetUsers / count;
+        averageLiteracy = totalLiteracy / count;
+
+        System.out.printf("\nLowest Internet Users : %s", minNetUsers);
+        System.out.printf("\nHighest Internet Users : %s", maxNetUsers);
+        System.out.printf("\nAverage Internet Users : %s", averageNetUsers);
+        System.out.printf("\nLowest Adult Literacy Rate : %s", minLiteracy);
+        System.out.printf("\nHighest Adult Literacy Rate : %s", maxLiteracy);
+        System.out.printf("\nAverage Adult Literacy Rate : %s", averageLiteracy);
+        System.out.printf("\nThe coefficient is %s", coefficient);
+    }
 }
