@@ -34,19 +34,12 @@ public class Country {
         return code;
     }
 
-    public void setId(String name) {
-
-    }
-
-    public String getName() {
-        return name;
-    }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public double getInternetUsers() {
+    public Double getInternetUsers() {
         return internetUsers;
     }
 
@@ -54,7 +47,7 @@ public class Country {
         this.internetUsers = internetUsers;
     }
 
-    public double getAdultLiteracyRate() {
+    public Double getAdultLiteracyRate() {
         return adultLiteracyRate;
     }
 

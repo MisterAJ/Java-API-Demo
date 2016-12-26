@@ -81,8 +81,8 @@ public class DAO {
         Double maxNetUsers = 0.0;
         Double minLiteracy = 99.0;
         Double maxLiteracy = 0.0;
-        Double averageNetUsers = 0.0;
-        Double averageLiteracy = 0.0;
+        Double averageNetUsers;
+        Double averageLiteracy;
         Double totalNetUsers = 0.0;
         Double totalLiteracy = 0.0;
         Double totalNetUsersTimesLiteracy = 0.0;
@@ -149,6 +149,6 @@ public class DAO {
         System.out.printf("\nLowest Adult Literacy Rate : %s", minLiteracy);
         System.out.printf("\nHighest Adult Literacy Rate : %s", maxLiteracy);
         System.out.printf("\nAverage Adult Literacy Rate : %s", averageLiteracy);
-        System.out.printf("\nThe coefficient is %s", coefficient);
+        System.out.printf("\nThe Correlation Coefficient is %s", coefficient);
     }
 }
